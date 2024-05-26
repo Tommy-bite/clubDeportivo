@@ -1,0 +1,88 @@
+<h1 class="text-center mt-3 text-success fw-bold">Resultado:</h1>
+<div class="text-center my-3">
+    <form action="/eliminar" method="POST">
+        <button class="btn btn-danger "  type="submit">🚮 Eliminar Usuarios registrados</button>
+    </form>
+</div>
+
+{{#if mensaje}}
+  <div class="alert alert-success fw-bold alert-dismissible fade show">
+    {{mensaje}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+{{/if}}
+
+{{#if usuarios}}
+
+  <div class="card">
+    <div class="card-header">
+        <h4 class="card-title text-center"> 👩‍🦰 Mujeres 👩‍🦳</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">APELLIDO</th>
+              <th scope="col">ID</th>
+              <th scope="col">FECHA REGISTRO</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {{#each mujeres as |mujer|}}
+                <tr>
+                <td>{{mujer.firstName}}</td>
+                <td>{{mujer.lastName}}</td>
+                <td>{{mujer.uid}}</td>
+                <td>{{mujer.timestamp}}</td>
+                </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card my-5 ">
+    <div class="card-header">
+        <h4 class="card-title text-center"> 👨‍🦱 Hombres 👨‍🦳</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">APELLIDO</th>
+              <th scope="col">ID</th>
+              <th scope="col">FECHA REGISTRO</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {{#each hombres as |hombre|}}
+                <tr>
+                <td>{{hombre.firstName}}</td>
+                <td>{{hombre.lastName}}</td>
+                <td>{{hombre.uid}}</td>
+                <td>{{hombre.timestamp}}</td>
+                </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5"></div>
+ 
+{{else}}
+  <p class="text-danger text-center">No se pudo obtener la información del usuario.</p>
+{{/if}}

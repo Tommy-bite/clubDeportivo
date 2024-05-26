@@ -69,7 +69,7 @@
           <td>
             <button class="btn btn-warning" onclick='preEdit("${d.id}","${d.deporte}","${d.precio
           }")' data-toggle="modal" data-target="#exampleModal">Editar</button>
-            <button class="btn btn-danger" onclick='eliminar("${d.deporte}")'>Eliminar</button>
+            <button class="btn btn-danger" onclick='eliminar("${d.id}")'>Eliminar</button>
           </td>
         </tr>
         `)
@@ -105,9 +105,9 @@
     $('#exampleModal').modal('hide')
   }
 
-  function eliminar(nombre) {
-    axios.get(`/eliminar?nombre=${nombre}`).then((data) => {
-      alert(data.data)
+  function eliminar(id) {
+    axios.get(`/eliminar?id=${id}`).then((data) => {
+      alert("Se elimino el registro correctamente")
       getData()
     })
     $('#exampleModal').modal('hide')

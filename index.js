@@ -42,19 +42,17 @@ app.get("/desafio", async (req, res) => {
   res.render("desafio");
 });
 
-app.get("/deportes" , async (req, res) => {
-
+app.get("/deportes", async (req, res) => {
   try {
     const stringDeportes = await readFile(pathFile, "utf-8");
     const deportes = JSON.parse(stringDeportes);
-    
-    return res.json({deportes})
+
+    return res.json({ deportes });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ok:false})
+    return res.status(500).json({ ok: false });
   }
-
-})
+});
 
 app.get("/agregar", async (req, res) => {
   let mensaje = "";
@@ -76,6 +74,33 @@ app.get("/agregar", async (req, res) => {
     await writeFile(pathFile, JSON.stringify(deportes));
 
     return res.json({ ok: newDeporte });
+  } catch (error) {
+    mensaje = "No fue posible crear el registro";
+    console.log(error);
+    res.render("desafio", { mensaje, error });
+  }
+});
+
+app.get("/editar", async (req, res) => {
+  let mensaje = "";
+
+  try {
+    const {  precio, id } = req.query;
+
+    const stringDeportes = await readFile(pathFile, "utf-8");
+    const deportes = JSON.parse(stringDeportes);
+
+    const deporte = deportes.find((item) => item.id === id);
+
+    if (!deporte) {
+      return res.status(404).json({ ok: false, msg: "Deporte no encontrado" });
+    }
+
+    deporte.precio = precio;
+   
+    await writeFile(pathFile, JSON.stringify(deportes));
+    return res.json({ deportes });
+
   } catch (error) {
     mensaje = "No fue posible crear el registro";
     console.log(error);

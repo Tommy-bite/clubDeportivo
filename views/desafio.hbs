@@ -67,9 +67,9 @@
           <td>${d.deporte}</td>
           <td>${d.precio}</td>
           <td>
-            <button class="btn btn-warning" onclick='preEdit("${d.nombre}","${d.precio
+            <button class="btn btn-warning" onclick='preEdit("${d.id}","${d.deporte}","${d.precio
           }")' data-toggle="modal" data-target="#exampleModal">Editar</button>
-            <button class="btn btn-danger" onclick='eliminar("${d.nombre}")'>Eliminar</button>
+            <button class="btn btn-danger" onclick='eliminar("${d.deporte}")'>Eliminar</button>
           </td>
         </tr>
         `)
@@ -77,7 +77,8 @@
     })
   }
 
-  function preEdit(nombre, precio) {
+  function preEdit(id,nombre, precio) {
+    $('#idModal').val(id)
     $('#nombreModal').val(nombre)
     $('#precioModal').val(precio)
   }
@@ -94,10 +95,11 @@
   }
 
   function edit() {
+    let id = $('#idModal').val()
     let nombre = $('#nombreModal').val()
     let precio = $('#precioModal').val()
-    axios.get(`/editar?nombre=${nombre}&precio=${precio}`).then((data) => {
-      alert(data.data)
+    axios.get(`/editar?id=${id}&nombre=${nombre}&precio=${precio}`).then((data) => {
+      alert("Se realizo la edición correctamente")
       getData()
     })
     $('#exampleModal').modal('hide')
@@ -123,6 +125,7 @@
 
           <div class="col-sm-10">
             <input id="nombreModal" disabled type="text" class="form-control" name="nombre" />
+            <input id="idModal"  type="hidden" class="form-control" name="id" />
           </div>
         </div>
         <div class="form-group row">
